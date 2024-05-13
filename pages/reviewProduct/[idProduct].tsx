@@ -27,8 +27,11 @@ export const getServerSideProps: GetServerSideProps<ReviewPageProps> = async (co
   const idProduct = params?.idProduct as string; // Ensure you have idProduct as a part of your dynamic route [idProduct].tsx
 
   try {
-    const response = await fetch(`${API_URL}/${idProduct}`);
+    const response = await fetch(`${API_URL}/${idProduct}`, {
+      next: { revalidate: 10 }
+    });
     const reviews: Review[] = await response.json();
+    console.log("success", reviews)
     return {
       props: {
         reviews,
