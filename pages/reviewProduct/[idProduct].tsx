@@ -3,7 +3,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import ReviewList, { Review } from '@/components/review/ReviewList';
 import '@/app/globals.css';
 
-const API_URL = 'https://34.87.57.125/api/reviewProduct'; // Ganti dengan URL API Anda
+const API_URL = 'http://34.87.57.125/api/reviewProduct'; // Ganti dengan URL API Anda
 
 interface ReviewPageProps {
   reviews: Review[];
