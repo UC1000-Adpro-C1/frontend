@@ -44,7 +44,7 @@ const NewReviewForm: React.FC<NewReviewFormProps> = ({ onSubmit, id }) => {
     console.log("Submitting the following data:", JSON.stringify(formData));  // Add this to log form data
     
     try {
-      const response = await fetch('http://localhost:8080/api/review/create', {
+      const response = await fetch('http://34.87.57.125/api/review/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import Header from '@/components/Header';
 import ReviewList, { Review } from '@/components/review/ReviewList';
 import '@/app/globals.css';
 
-const API_URL = 'http://localhost:8080/api/reviewProduct'; // Ganti dengan URL API Anda
+const API_URL = 'http://34.87.57.125/api/reviewProduct'; // Ganti dengan URL API Anda
 
 interface ReviewPageProps {
   reviews: Review[];
