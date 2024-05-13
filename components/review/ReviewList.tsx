@@ -20,7 +20,7 @@ const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
 
   const deleteReview = async (reviewId: string) => {
     try {
-      const response = await fetch(`http://34.87.57.125/api/delReview/${reviewId}`, {
+      const response = await fetch(`https://34.87.57.125/api/delReview/${reviewId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
