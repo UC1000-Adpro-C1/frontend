@@ -42,11 +42,28 @@ const UserTopups = () => {
         fetchTopups();
     }, [userId]);
 
-    // Debugging output
-    console.log("Router ID:", userId);
-    console.log("Topups:", topups);
-    console.log("Loading:", loading);
-    console.log("Error:", error);
+    const handleCancel = async (topUpId: string) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/topups/cancel/${topUpId}`, {
+                method: 'POST'
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Update the topups state to reflect the cancelled status
+            setTopups((prevTopups) =>
+                prevTopups.map((topup) =>
+                    topup.topUpId === topUpId ? { ...topup, status: 'CANCELLED' } : topup
+                )
+            );
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error);
+            } else {
+                setError(new Error('An unknown error occurred'));
+            }
+        }
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -57,7 +74,10 @@ const UserTopups = () => {
             <ul>
                 {topups.map((topup) => (
                     <li key={topup.topUpId}>
-                        {topup.amount} - {topup.transactionTime}
+                        {topup.amount} - {topup.transactionTime} - {topup.status}
+                        {topup.status === "PENDING" && (
+                            <button onClick={() => handleCancel(topup.topUpId)}>Cancel</button>
+                        )}
                     </li>
                 ))}
             </ul>
