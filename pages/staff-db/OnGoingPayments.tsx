@@ -64,7 +64,8 @@ const OnGoingPayments: React.FC = () => {
                     className="px-4 py-2 border rounded"
                 >
                     <option value="">No Sorting</option>
-                    <option value="amount">Sort by Amount</option>
+                    <option value="amount">Sort by Amount (Low-High)</option>
+                    <option value="amountReverse">Sort by Amount (High-Low)</option>
                     <option value="ownerId">Sort by Owner ID</option>
                 </select>
             </div>
@@ -81,7 +82,6 @@ const OnGoingPayments: React.FC = () => {
                                     <p><strong>Amount:</strong> Rp{payment.amount}</p>
                                     <p><strong>Status:</strong> {payment.status}</p>
                                     <p><strong>User Owner ID:</strong> {payment.userId}</p>
-                                    <p><strong>Status:</strong> PENDING</p>
                                     <div className="flex space-x-4 mt-2">
                                         <button
                                             onClick={() => updateStatus(payment.id, 'success')}
