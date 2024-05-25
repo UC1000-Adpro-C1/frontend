@@ -12,12 +12,13 @@ export interface Review {
 
 interface ReviewListProps {
   reviews: Review[];
+  productId : string;
 }
 
-const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
+const ReviewList: React.FC<ReviewListProps> = ({ reviews, productId }) => {
   const router = useRouter();
   const [currentReviews, setReviews] = useState<Review[]>(reviews);
-
+  
   const deleteReview = async (reviewId: string) => {
     try {
       const response = await fetch(`http://34.87.57.125/api/delReview/${reviewId}`, {
@@ -41,10 +42,35 @@ const ReviewList: React.FC<ReviewListProps> = ({ reviews }) => {
     // Redirect to edit page or open edit modal
     router.push(`/editReview/${reviewId}`);
   };
+  const fetchSortedReviews = async () => {
+    try {
+      const response = await fetch(`http://34.87.57.125/api/reviewProduct/sortedByRating/${productId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      if (response.ok) {
+        const sortedReviews = await response.json();
+        setReviews(sortedReviews);
+      } else {
+        console.log("test");
+        console.error('Gagal mengambil review:', response.statusText);
+      }
+    } catch (error) {
+      console.log("tettstststs");
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div className="py-12 container mx-auto">
       <h1 className="text-2xl font-bold text-center">Product Reviews</h1>
+      <div className="text-center">
+        <button onClick={fetchSortedReviews} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+          Sort by Rating
+        </button>
+      </div>
       {currentReviews.map((review: Review) => (
         <div key={review.reviewId} className="mt-4 bg-white shadow-lg rounded-lg p-4 relative">
           <div className="absolute top-2 right-2 flex">
