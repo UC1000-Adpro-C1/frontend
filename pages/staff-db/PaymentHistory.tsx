@@ -48,8 +48,9 @@ const PaymentHistory: React.FC = () => {
                     <option value="">No Sorting</option>
                     <option value="status">Sort by Status (SUCCESS-FAILED)</option>
                     <option value="statusReverse">Sort by Status (FAILED-SUCCESS)</option>
+                    <option value="amount">Sort by Amount (Low-High)</option>
+                    <option value="amountReverse">Sort by Amount (High-Low)</option>
                     <option value="ownerId">Sort by Owner ID</option>
-                    <option value="amount">Sort by Amount</option>
                 </select>
             </div>
             <div className="mt-8">

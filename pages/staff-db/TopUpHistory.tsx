@@ -50,8 +50,9 @@ const TopUpHistory: React.FC = () => {
                     <option value="statusReverse">Sort by Status (FAILED-SUCCESS)</option>
                     <option value="transactionTimeAsc">Sort by Transaction Time (Oldest-Newest)</option>
                     <option value="transactionTimeDesc">Sort by Transaction Time (Newest-Oldest)</option>
+                    <option value="amount">Sort by Amount (Low-High)</option>
+                    <option value="amountReverse">Sort by Amount (High-Low)</option>
                     <option value="ownerId">Sort by Owner ID</option>
-                    <option value="amount">Sort by Amount</option>
                 </select>
             </div>
             <div className="mt-8">
