@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
 
   const handleFormSubmit = async (userLogin: UserLoginData) => {
     try {
-      const response = await fetch("http://localhost:8081/login", {
+      const response = await fetch("http://34.87.158.208/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userLogin),

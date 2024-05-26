@@ -48,6 +48,7 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
         setCookie("username", data.username, 7);
         setCookie("role", data.role, 7);
         setCookie("money", data.money, 7);
+        setCookie("userId", data.userId, 7); // Store the user ID
         console.log(data.token);
         onSubmit(data); // Pass the response data to the parent component
         router.push("/");

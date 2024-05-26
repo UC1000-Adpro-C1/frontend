@@ -6,7 +6,7 @@ import { getCookie } from "@/utils/cookies";
 const ShopPage = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const usernameget = getCookie("username");
+  const username = getCookie("username");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,7 +34,7 @@ const ShopPage = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-5xl font-bold text-center my-20">
-        Find outfit that suits you! {usernameget}
+        Find outfit that suits you, {username}!
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-32">
         {products.map((product) => (

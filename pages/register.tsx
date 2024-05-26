@@ -10,7 +10,7 @@ const RegisterPage: React.FC = () => {
 
   const handleFormSubmit = async (userRegister: UserRegisterData) => {
     try {
-      const response = await fetch("http://localhost:8081/register", {
+      const response = await fetch("http://34.87.158.208/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userRegister),
