@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
+import '@/../../app/globals.css';
 
 export default function AddBalance() {
     const router = useRouter();

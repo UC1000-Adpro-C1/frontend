@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useRouter } from 'next/router';
-import '@/app/globals.css';
+import '@/../../app/globals.css';
 import Link from "next/link";
 
 interface Topup {
@@ -70,6 +70,7 @@ const UserTopups = () => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
+        <div className="py-12 container mx-auto">
         <div>
             <h1>Top-ups for User {userId}</h1>
             <Link href={`/topups/${userId}/AddBalance`}>
@@ -77,16 +78,20 @@ const UserTopups = () => {
             </Link>
             <ul>
                 {topups.map((topup) => (
-                    <li key={topup.topUpId}>
-                        {topup.amount} - {topup.transactionTime} - {topup.status}
+                    <div key={topup.topUpId} className="bg-white shadow-lg rounded-lg p-4 mb-4">
+                        <p><strong>Amount:</strong> Rp{topup.amount}</p>
+                        <p><strong>Status:</strong> {topup.status}</p>
+                        <p><strong>Transaction Time:</strong> {topup.transactionTime}</p>
                         {topup.status === "PENDING" && (
                             <button onClick={() => handleCancel(topup.topUpId)}>Cancel</button>
                         )}
-                    </li>
-                ))}
+                    </div>
+            ))}
             </ul>
         </div>
-    );
+        </div>
+)
+    ;
 };
 
 export default UserTopups;
