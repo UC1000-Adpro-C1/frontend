@@ -8,7 +8,12 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">Welcome to Farrel</h1>
+        <h1 className="text-6xl font-bold">
+          Welcome to{" "}
+          <span className="bg-gradient-to-br from-gradient-start via-purple-300 to-gradient-end bg-clip-text text-transparent animate-gradient">
+            Farrel
+          </span>
+        </h1>
         <p className="mt-3 text-2xl">
           Discover unique fashion items at unbeatable prices
         </p>
@@ -35,11 +40,11 @@ export default function Home() {
           </Link>
 
           <Link
-            href="/about"
+            href="/staff/Dashboard"
             className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-white focus:text-black transition-colors duration-300 ease-in-out hover:bg-gradient-to-br from-indigo-500 to-purple-500"
           >
-            <h3 className="text-2xl font-bold">An Admin? &rarr;</h3>
-            <p className="mt-4 text-xl">Log in to your admin account here.</p>
+            <h3 className="text-2xl font-bold">A Staff? &rarr;</h3>
+            <p className="mt-4 text-xl">Go to staff dashboard here.</p>
           </Link>
         </div>
       </main>
