@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
+import Link from 'next/link';
 import '@/styles/globals.css';
+import { setCookie } from '@/utils/cookies';
 
 interface UserLoginFormProps {
   onSubmit: (userLogin: UserLoginData) => void;
@@ -36,11 +38,14 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
       });
 
       if (response.ok) {
-        console.log("000Login successful");
+        console.log("Login successful");
         const data = await response.json();
         localStorage.setItem('token', data.token);
+        setCookie('bearer', data.token, 7);  
+        setCookie('username', data.username, 7);  
         console.log(data.token)
         onSubmit(data); // Pass the response data to the parent component
+        router.push('/');
         // Store token in local storage or cookies
       } else {
         const errorResponse = await response.text();
@@ -51,6 +56,12 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
       setError('Error submitting form');
       console.error('Error submitting form:', error);
     }
+  };
+  const handleRegister = () => {
+    // Hapus cookie di sini
+    
+    // Redirect ke halaman login
+    router.push('/register'); // Ganti '/login' dengan URL halaman login Anda
   };
 
   return (
@@ -86,6 +97,10 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
             {error && <p className="text-red-500">{error}</p>}
             <button type="submit" className="w-full p-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Login</button>
           </form>
+          <div className="mt-4 text-center">
+            <p>Don&apos;t have an account?</p>
+            <button onClick={() => router.push(`/register`)}className="w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Register</button>
+          </div>
         </div>
       </div>
     </div>
