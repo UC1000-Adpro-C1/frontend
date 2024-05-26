@@ -23,7 +23,7 @@ const UserTopups = () => {
 
         const fetchTopups = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/topups/${userId}`);
+                const response = await fetch(`http://34.87.57.125/api/topups/${userId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -45,7 +45,7 @@ const UserTopups = () => {
 
     const handleCancel = async (topUpId: string) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/topups/cancel/${topUpId}`, {
+            const response = await fetch(`http://34.87.57.125/api/topups/cancel/${topUpId}`, {
                 method: 'POST'
             });
             if (!response.ok) {

@@ -30,7 +30,7 @@ export default function AddBalance() {
             };
 
             // Make the HTTP request to your backend API route
-            const response = await fetch('http://localhost:8080/api/topup', {
+            const response = await fetch('http://34.87.57.125/api/topup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
