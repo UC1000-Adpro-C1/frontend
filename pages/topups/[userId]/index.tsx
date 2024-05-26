@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useRouter } from 'next/router';
 import '@/app/globals.css';
+import Link from "next/link";
 
 interface Topup {
     amount: number;
@@ -71,6 +72,9 @@ const UserTopups = () => {
     return (
         <div>
             <h1>Top-ups for User {userId}</h1>
+            <Link href={`/topups/${userId}/AddBalance`}>
+                Add Balance
+            </Link>
             <ul>
                 {topups.map((topup) => (
                     <li key={topup.topUpId}>

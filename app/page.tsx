@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
+  const dummyUserId = "hunnania";
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
@@ -38,6 +39,14 @@ export default function Home() {
           >
             <h3 className="text-2xl font-bold">An Admin? &rarr;</h3>
             <p className="mt-4 text-xl">Log in to your admin account here.</p>
+          </Link>
+
+          <Link
+              href={`/topups/${dummyUserId}`}
+              className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-white focus:text-black transition-colors duration-300 ease-in-out hover:bg-gradient-to-br from-indigo-500 to-purple-500"
+          >
+            <h3 className="text-2xl font-bold">Top Up &rarr;</h3>
+            <p className="mt-4 text-xl">Add Funds for a Seamless Shopping Experience.</p>
           </Link>
         </div>
       </main>
