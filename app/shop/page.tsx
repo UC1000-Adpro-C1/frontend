@@ -1,15 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { getCookie } from "@/utils/cookies";
 
 const ShopPage = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const usernameget = getCookie("username");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:8080/product");
+        const response = await fetch("http://34.87.57.125/product");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -32,7 +34,7 @@ const ShopPage = () => {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-5xl font-bold text-center my-20">
-        Find outfit that suits you!
+        Find outfit that suits you! {usernameget}
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-32">
         {products.map((product) => (

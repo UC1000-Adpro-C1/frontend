@@ -13,7 +13,7 @@ const ProductDetailPage = ({ params }: { params: { id: string } }) => {
     if (id) {
       const fetchProduct = async () => {
         try {
-          const response = await fetch(`http://localhost:8080/product/${id}`);
+          const response = await fetch(`http://34.87.57.125/product/${id}`);
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
@@ -41,7 +41,7 @@ const ProductDetailPage = ({ params }: { params: { id: string } }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/cart/carts/items", {
+      const response = await fetch("http://34.87.57.125/cart/carts/items", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
