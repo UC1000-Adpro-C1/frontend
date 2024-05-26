@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import router, { useRouter } from "next/router";
 import "@/styles/globals.css";
-import { setCookie } from "@/utils/cookies";
 
 interface UserRegisterFormProps {
   onSubmit: (userRegister: UserRegisterData) => void;
@@ -11,6 +10,7 @@ export interface UserRegisterData {
   username: string;
   password: string;
   email: string;
+  role: string;
 }
 
 const UserRegisterForm: React.FC<UserRegisterFormProps> = ({ onSubmit }) => {
@@ -18,6 +18,7 @@ const UserRegisterForm: React.FC<UserRegisterFormProps> = ({ onSubmit }) => {
     username: "",
     password: "",
     email: "",
+    role: "",
   });
   const [error, setError] = useState<string>("");
 
@@ -35,21 +36,18 @@ const UserRegisterForm: React.FC<UserRegisterFormProps> = ({ onSubmit }) => {
     e.preventDefault();
     console.log("Submitting the following data:", JSON.stringify(formData));
     try {
-      const response = await fetch("http://localhost:8081/register", {
+      const response = await fetch("http://34.87.158.208/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        console.log("000Register successful");
+        console.log("Register successful");
         const data = await response.json();
-        localStorage.setItem("token", data.token);
-        setCookie("bearer", data.token, 7);
-        setCookie("username", data.username, 7);
         console.log(data.token);
         onSubmit(data); // Pass the response data to the parent component
-        router.push("/");
+        router.push("/login");
         // Store token in local storage or cookies
       } else {
         const errorResponse = await response.text();
@@ -118,6 +116,47 @@ const UserRegisterForm: React.FC<UserRegisterFormProps> = ({ onSubmit }) => {
                 onChange={handleChange}
                 required
               />
+            </div>
+            <div className="mb-4">
+              <span className="block text-sm font-medium text-gray-700">
+                Role
+              </span>
+              <div className="mt-1 flex items-center">
+                <input
+                  id="role-user"
+                  name="role"
+                  type="radio"
+                  value="USER"
+                  className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                  checked={formData.role === "USER"}
+                  onChange={handleChange}
+                  required
+                />
+                <label
+                  htmlFor="role-user"
+                  className="ml-3 block text-sm font-medium text-gray-700"
+                >
+                  USER
+                </label>
+              </div>
+              <div className="mt-1 flex items-center">
+                <input
+                  id="role-staff"
+                  name="role"
+                  type="radio"
+                  value="STAFF"
+                  className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                  checked={formData.role === "STAFF"}
+                  onChange={handleChange}
+                  required
+                />
+                <label
+                  htmlFor="role-staff"
+                  className="ml-3 block text-sm font-medium text-gray-700"
+                >
+                  STAFF
+                </label>
+              </div>
             </div>
             {error && <p className="text-red-500">{error}</p>}
             <button

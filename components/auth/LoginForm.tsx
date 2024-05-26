@@ -34,7 +34,7 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
     e.preventDefault();
     console.log("Submitting the following data:", JSON.stringify(formData));
     try {
-      const response = await fetch("http://localhost:8081/login", {
+      const response = await fetch("http://34.87.158.208/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -46,6 +46,8 @@ const UserLoginForm: React.FC<UserLoginFormProps> = ({ onSubmit }) => {
         localStorage.setItem("token", data.token);
         setCookie("bearer", data.token, 7);
         setCookie("username", data.username, 7);
+        setCookie("role", data.role, 7);
+        setCookie("money", data.money, 7);
         console.log(data.token);
         onSubmit(data); // Pass the response data to the parent component
         router.push("/");
