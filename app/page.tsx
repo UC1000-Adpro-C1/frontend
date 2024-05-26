@@ -70,6 +70,14 @@ export default function Home() {
             <h3 className="text-2xl font-bold">A Staff? &rarr;</h3>
             <p className="mt-4 text-xl">Go to staff dashboard here.</p>
           </Link>
+
+          <Link
+              href={`/topups/${getCookie('username')}`}
+              className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-white focus:text-black transition-colors duration-300 ease-in-out hover:bg-gradient-to-br from-indigo-500 to-purple-500"
+          >
+            <h3 className="text-2xl font-bold">Top Up &rarr;</h3>
+            <p className="mt-4 text-xl">Add Funds for a Seamless Shopping Experience.</p>
+          </Link>
         </div>
       </main>
 
