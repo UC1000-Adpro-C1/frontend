@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import Header from '@/components/Header';
 import ReviewList, { Review } from '@/components/review/ReviewList';
 import '@/app/globals.css';
+import Header from '@/components/Header';
+import { getCookie } from '@/utils/cookies';
 
-const API_URL = 'http://localhost:8080/api/reviewProduct'; // Ganti dengan URL API Anda
+const API_URL = 'http://34.87.57.125/api/reviewProduct'; // Ganti dengan URL API Anda
 
 interface ReviewPageProps {
   reviews: Review[];
@@ -13,10 +14,11 @@ interface ReviewPageProps {
 
 const ReviewPage: React.FC<ReviewPageProps> = ({ reviews, idProduct }) => {
   const [reviewsState, setReviews] = useState<Review[]>(reviews); // Use a clearer state variable name
-
+  const usernameget = getCookie('username');
   return (
     <div>
-      <ReviewList reviews={reviewsState}  />
+      <Header /> 
+      <ReviewList reviews={reviewsState} productId={idProduct} username={usernameget|| 'guest'} />
     </div>
   );
 };
@@ -27,8 +29,11 @@ export const getServerSideProps: GetServerSideProps<ReviewPageProps> = async (co
   const idProduct = params?.idProduct as string; // Ensure you have idProduct as a part of your dynamic route [idProduct].tsx
 
   try {
-    const response = await fetch(`${API_URL}/${idProduct}`);
+    const response = await fetch(`${API_URL}/${idProduct}`, {
+      next: { revalidate: 10 }
+    });
     const reviews: Review[] = await response.json();
+    console.log("success", reviews)
     return {
       props: {
         reviews,

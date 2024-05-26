@@ -25,12 +25,12 @@ export interface EditedReviewData {
 const EditReviewForm: React.FC<EditReviewFormProps> = ({ onSubmit, review, error }) => {
     const [formData, setFormData] = useState<EditedReviewData>(review);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+      setFormData(prevState => ({
         ...prevState,
         [name]: value,
-        }));
+      }));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -48,7 +48,7 @@ const EditReviewForm: React.FC<EditReviewFormProps> = ({ onSubmit, review, error
                    name="rating"
                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
                    value={formData.rating}
-                   onChange={(e) => {handleChange}}
+                   onChange={handleChange}
                 >
                   <option value="">Select a rating</option>
                   <option value="1">1</option>

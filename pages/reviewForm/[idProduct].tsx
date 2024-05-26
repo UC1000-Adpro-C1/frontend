@@ -2,6 +2,7 @@ import * as React from "react";
 import { useRouter } from 'next/router';
 import NewReviewForm, { NewReviewData } from "@/components/review/ReviewForm";
 import '@/app/globals.css';
+import Header from "@/components/Header";
 
 const CreateReviewPage: React.FC = () => {
   const router = useRouter();
@@ -9,7 +10,7 @@ const CreateReviewPage: React.FC = () => {
 
   const handleFormSubmit = async (newReview: NewReviewData) => {
     try {
-      const response = await fetch('http://localhost:8080/api/review/create', {
+      const response = await fetch('http://34.87.57.125/api/review/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,9 +29,11 @@ const CreateReviewPage: React.FC = () => {
   };
 
   return (
+    <div>
+      <Header /> 
     <div className="flex justify-center my-8">
       <NewReviewForm onSubmit={handleFormSubmit} id={idProduct as string} />
-    </div>
+    </div></div>
   );
 };
 

@@ -12,7 +12,7 @@ const EditReviewPage: React.FC = () => {
   useEffect(() => {
     const fetchReviewById = async (id: string | string[]) => {
       try {
-        const response = await fetch(`http://localhost:8080/api/review/${id}`);
+        const response = await fetch(`http://34.87.57.125/api/review/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch review');
         }
@@ -32,7 +32,7 @@ const EditReviewPage: React.FC = () => {
 
   const handleFormSubmit = async (editedReview: EditedReviewData) => {
     try {
-      const response = await fetch('http://localhost:8080/api/review', {
+      const response = await fetch('http://34.87.57.125/api/review', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -53,6 +53,7 @@ const EditReviewPage: React.FC = () => {
 
   return (
     <div>
+      <Header /> 
       <div className="flex justify-center my-8">
         {review && <EditReviewForm review={review} onSubmit={handleFormSubmit} error={error}/>}
       </div>
