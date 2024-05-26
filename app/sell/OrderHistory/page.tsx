@@ -1,43 +1,74 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import '@/app/globals.css';
+import { getCookie } from '@/utils/cookies';
 
 interface Order {
     id: string;
     productName: string;
     buyerId: string;
     status: string;
+    productId: string; // Ensure productId is part of Order interface
+}
+
+interface Product {
+    productId: string;
+    productName: string;
+    sellerId: string;
+    // Add any other relevant fields from the product
 }
 
 const OrdersList: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+    const username = getCookie('username');
+
+    const fetchOrders = useCallback(async () => {
+        try {
+            const response = await fetch('http://34.87.57.125/order');
+            // const response = await fetch('http://localhost:8080/order');
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch orders');
+            }
+            const orders = await response.json();
+            const filteredOrders = orders.filter((order: Order) =>
+                ["SUCCESS", "FAILED", "CANCELLED"].includes(order.status)
+            );
+            setOrders(filteredOrders);
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    const fetchProducts = useCallback(async () => {
+        try {
+            const response = await fetch('http://34.87.57.125/product');
+            // const response = await fetch('http://localhost:8080/product');
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
+            }
+            const products = await response.json();
+            setProducts(products);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    }, []);
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-
-                const response = await fetch(' http://34.87.57.125/order');
-                // const response = await fetch(' http://localhost:8080/order');
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch orders');
-                }
-                const orders = await response.json();
-                const filteredOrders = orders.filter((order: Order) =>
-                    ["SUCCESS", "FAILED", "CANCELLED"].includes(order.status)
-                );
-                setOrders(filteredOrders);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchOrders();
-    }, []);
+        fetchProducts();
+    }, [fetchOrders, fetchProducts]);
+
+    const filteredProducts = products.filter(product => product.sellerId === username);
+    const productIds = filteredProducts.map(product => product.productId);
+    const filteredOrders = orders.filter(order => productIds.includes(order.id));
 
     return (
         <div className="py-12 container mx-auto">
@@ -61,7 +92,7 @@ const OrdersList: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
+                        {filteredOrders.map((order) => (
                             <tr key={order.id}>
                                 <td className="py-2 px-4 border-b">{order.id}</td>
                                 <td className="py-2 px-4 border-b">{order.productName}</td>
