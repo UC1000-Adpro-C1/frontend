@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import '@/../../app/globals.css';
+import '@/app/globals.css';
 import {getCookie} from "@/utils/cookies";
 
 export default function AddBalance() {
@@ -11,9 +11,12 @@ export default function AddBalance() {
     const [message, setMessage] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
 
-    userId = getCookie('username')
-    if (userId == 'undefined') {
-        router.push('/');
+    if (!userId) {
+        return; // If userId is not defined, do nothing
+    }
+
+    if (userId !== getCookie('username')) {
+        router.push(`/UnauthorizedUser`);
         return;
     }
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -58,17 +61,17 @@ export default function AddBalance() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div
+            className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500 flex flex-col items-center justify-center py-2">
             <button
                 onClick={() => router.push(`/topups/${userId}`)}
-
                 className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 mb-4"
             >
                 Back
             </button>
-            <h1 className="text-6xl font-bold">Add Balance</h1>
-            <p className="mt-3 text-2xl">User ID: {userId}</p>
-            <form onSubmit={handleSubmit} className="w-full max-w-sm mt-6">
+            <h1 className="text-6xl font-bold text-white mb-3">Add Balance</h1>
+            <p className="text-2xl text-white mb-6">User ID: {userId}</p>
+            <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white shadow-lg rounded-lg p-6">
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
                         Amount
@@ -86,7 +89,7 @@ export default function AddBalance() {
                 <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    disabled={loading} // Disable button while loading
+                    disabled={loading}
                 >
                     {loading ? 'Loading...' : 'Submit'}
                 </button>
